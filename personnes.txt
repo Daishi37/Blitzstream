@@ -1,0 +1,10 @@
+PRENOM, NOM , ANNE_NAISSANCE , SALAIRE , GENRE , Ville
+Laure, BARBE, 1994, 2360.50, f, Nantes
+Rihab, BETTAIEB, 1991, 2040.90, F, Nantes
+Aurelien, DEMOLY, 1993, 2000.0, h, Rennes
+Tanguy , NGUYEN, 1992, 2300.0, h, Lille
+Laura, TENET, 1995, 2205.89, F, Lyon
+Matthieu, BILLAUD, 1992, 2650.70, H, Paris
+Martin, TOGNETTI, 1988, 1980.0, h, Bordeaux
+Simon, MAILLARD, 1975, 3022.39, H, Lyon
+Baptiste, BLANCHET, 1985, 2380.70, A, Lyon
