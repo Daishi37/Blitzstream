@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -79,17 +80,17 @@ public class Personne {
         }
     public static void main(String[] args) {
 
-        Personne[] peoples = getlist().toArray(Personne[]::new);
+        Personne[] personnes = getlist().toArray(Personne[]::new);
 
         System.out.println("Nées après 1991 :");
-        Stream.of(peoples).filter(pers -> pers.getAnnee_naissance() > 1991).forEach(System.out::println);
+        Stream.of(personnes).filter(pers -> pers.getAnnee_naissance() > 1991).forEach(System.out::println);
         System.out.println();
         System.out.println("Nées en 1995 :");
-        Stream.of(peoples).filter(pers -> pers.getAnnee_naissance() == 1995).map(Personne::getNom).forEach(System.out::println);
+        Stream.of(personnes).filter(pers -> pers.getAnnee_naissance() == 1995).map(Personne::getNom).forEach(System.out::println);
         System.out.println();
         System.out.println("Nées avant 1990 :");
         AtomicInteger compteur = new AtomicInteger(0);
-        Stream.of(peoples).filter(pers -> pers.getAnnee_naissance() < 1990).map(Personne::getNom).sorted().forEach(name -> {
+        Stream.of(personnes).filter(pers -> pers.getAnnee_naissance() < 1990).map(Personne::getNom).sorted().forEach(name -> {
             System.out.println(name);
             compteur.getAndIncrement();
         });
@@ -99,20 +100,22 @@ public class Personne {
         System.out.println("Nombres de personnes  : " + compteur);
 
         System.out.println("Ordonné par nom et prénom :");
-        Stream.of(peoples).sorted(Comparator.comparing(Personne::getNom).thenComparing(Personne::getPrenom)).forEach(System.out::println);
+        Stream.of(personnes).sorted(Comparator.comparing(Personne::getNom).thenComparing(Personne::getPrenom)).forEach(System.out::println);
 
         System.out.println("Femmes en J :");
-        Stream.of(peoples).filter(personne -> personne.getGenre().equals("F")).filter(personne -> personne.getNom().startsWith("R")).forEach(System.out::println);
+        Stream.of(personnes).filter(personne -> personne.getGenre().equals("F")).filter(personne -> personne.getNom().startsWith("R")).forEach(System.out::println);
 
         System.out.println("Hommes en 'petit h' :");
-        Stream.of(peoples).forEach(personne -> {
+        Stream.of(personnes).forEach(personne -> {
             personne.setGenre(personne.getGenre().toLowerCase());
             if (personne.getGenre().equals("h")) System.out.println(personne);
         });
 
         System.out.println("Année naissance plus jeune personne");
-        Stream.of(peoples).map(Personne::getAnnee_naissance).mapToInt(Integer::intValue).max().ifPresent(System.out::println);
+        Stream.of(personnes).map(Personne::getAnnee_naissance).mapToInt(Integer::intValue).max().ifPresent(System.out::println);
 
+        System.out.println("Salaire moyen à Lyon:");
+        Stream.of(personnes).filter(personne -> personne.getVille().equals("Lyon")).mapToDouble(Personne::getSalaire).average().ifPresent(System.out::println);
     }
 
     private static List<String> getlines(String path){
